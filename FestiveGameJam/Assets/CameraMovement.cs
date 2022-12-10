@@ -9,10 +9,7 @@ public class CameraMovement : MonoBehaviour
 
     Transform start, end;
     Vector3 targetDirection;
-    Quaternion targetRotation;
     private int counter = 0;
-    private bool arrived = false;
-    private bool doneRotating = false;
     private float speed = 5;
 
     // Start is called before the first frame update
@@ -22,7 +19,6 @@ public class CameraMovement : MonoBehaviour
 
         targetDirection = end.position - transform.position;
 
-        targetRotation = Quaternion.LookRotation(targetDirection);
 
 
         //Start the rotating coroutine
@@ -33,7 +29,6 @@ public class CameraMovement : MonoBehaviour
     void Update()
     {
         targetDirection = end.position - transform.position;
-        targetRotation = Quaternion.LookRotation(targetDirection);
 
         transform.position = Vector3.MoveTowards(transform.position, end.position, speed * Time.deltaTime);
 
@@ -79,40 +74,40 @@ public class CameraMovement : MonoBehaviour
 
     }
 
-    //Moving coroutine here
-    IEnumerator MoveToCheckpoint(Transform start, Transform end)
-    {
-        float timeElapsed = 0;
-        float duration = 5;
+    ////Moving coroutine here
+    //IEnumerator MoveToCheckpoint(Transform start, Transform end)
+    //{
+    //    float timeElapsed = 0;
+    //    float duration = 5;
 
-        while(timeElapsed < duration)
-        {
-            transform.position = Vector3.Lerp(start.position, end.position, Mathf.SmoothStep(0, 1, timeElapsed / duration));
-            timeElapsed += Time.deltaTime;
-            yield return null;
-        }
-        transform.position = end.position;
-        counter++;
-        arrived = true;
-    }
+    //    while(timeElapsed < duration)
+    //    {
+    //        transform.position = Vector3.Lerp(start.position, end.position, Mathf.SmoothStep(0, 1, timeElapsed / duration));
+    //        timeElapsed += Time.deltaTime;
+    //        yield return null;
+    //    }
+    //    transform.position = end.position;
+    //    counter++;
+    //    arrived = true;
+    //}
 
-    //Rotating coroutine here
-    IEnumerator LookAtCheckpoint(Transform start, Transform end)
-    {
-        float timeElapsed = 0;
-        float duration = 5;
+    ////Rotating coroutine here
+    //IEnumerator LookAtCheckpoint(Transform start, Transform end)
+    //{
+    //    float timeElapsed = 0;
+    //    float duration = 5;
 
-        Quaternion direction = Quaternion.LookRotation(end.position - start.position);
+    //    Quaternion direction = Quaternion.LookRotation(end.position - start.position);
 
-        while (timeElapsed < duration)
-        {
-            transform.rotation = Quaternion.Slerp(start.rotation, direction, timeElapsed / duration);
-            timeElapsed += Time.deltaTime;
-            yield return null;
-        }
-        transform.rotation = direction;
-        doneRotating = true;
-    }
+    //    while (timeElapsed < duration)
+    //    {
+    //        transform.rotation = Quaternion.Slerp(start.rotation, direction, timeElapsed / duration);
+    //        timeElapsed += Time.deltaTime;
+    //        yield return null;
+    //    }
+    //    transform.rotation = direction;
+    //    doneRotating = true;
+    //}
 
 
 }
